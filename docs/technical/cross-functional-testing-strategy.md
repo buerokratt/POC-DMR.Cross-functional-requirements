@@ -1,1 +1,0 @@
-# Cross-Functional Testing Strategy
