@@ -6,4 +6,4 @@ This document outlines the overall branching strategy for all components reposit
 
 # TL;DR
 * Short living feature branches
-* Feature branch goes back to main through green light from CI pipeline and code review.
+* Feature branch goes back to `main` branch after it passes the CI pipeline and code review.
