@@ -6,12 +6,18 @@ This document outlines what we learnt in the spike [Cross: Github Actions [Spike
 
 Multistage deployment is possible in Github by using named jobs such as `dev`, `staging`, `production` etc.
 
-To enable peer reviewing of jobs/stages we can use environments, to set this up requires creating the environment: 
+To enable peer reviewing of jobs/stages we can use environments, to set this up requires creating the environment:
+![Settings](../images/github_environments.png)
 1. Going to the repository settings
 2. Selecting `Environments` on the left
 3. Creating a new environment
 4. Selecting `Required reviewers` and entering the usernames of revieweres
 5. In the YAML file use the `environment` keyword to sepecify the name of the environment (exact spelling necessary)
+    ```
+    deploydev:
+      runs-on: ubuntu-latest
+      environment: Dev
+    ```
 
 
 ## Secret handling and configuration in CI/CD
@@ -74,15 +80,18 @@ If we wanted to version the assemblies, we could simply modify the code in the p
 This can be done using [Composite Actions] (https://github.blog/changelog/2021-08-25-github-actions-reduce-duplication-with-action-composition/)
 
 Actions should be located in a `.github/actions` folder
+
+  ![GitHub Actions](../images/github_actions.png)
+
 Each action must:
 - Be in a named directory in the actions folder and contain one file called action.yml
 - Have a name and description
 - Inputs must be specified
 - Include the syntax
-```
-runs: 
-  using: composite
-``` 
+    ```
+    runs: 
+    using: composite
+    ``` 
 - Secrets must be passed to composite actions as parameters (inputs)
 
 An alternative method is using [Reusable Workflows] (https://github.blog/2022-02-10-using-reusable-workflows-github-actions/) but these can be slightly more limiting
