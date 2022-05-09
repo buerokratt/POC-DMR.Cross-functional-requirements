@@ -51,9 +51,6 @@ steps:
 
 [GitHub Documentation on Encrypted Secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets)
 
-<Write clever things in here with examples of usage...>
-
-
 ## Versioning in CI pipelines (code based and container based)
 
 If we wish to drive our versions from GitHub Pipeline builds the variable ```github.run_number``` gives us the specific build which created the artifact.
@@ -73,7 +70,7 @@ So we'd simply tag the container with a version number when pushing it up to a r
 ```
 Breaking changes would require changes to the pipeline to increment the major or minor version number, or store that value in a variable.  
 
-If we wanted to version the assemblies, we could simply modify the code in the pipeline to specify this value and _then_ build the code.
+If we wanted to version the assemblies, we could simply modify the application code in the pipeline to specify this value and _then_ build the code.
 
 ## Workflows calling other workflows with parameters
 
@@ -95,3 +92,39 @@ Each action must:
 - Secrets must be passed to composite actions as parameters (inputs)
 
 An alternative method is using [Reusable Workflows](https://github.blog/2022-02-10-using-reusable-workflows-github-actions/) but these can be slightly more limiting
+
+
+## Uploading Artifacts
+
+Github Actions has the capability to store artifacts produced by the pipeline. 
+
+For this we can use the ```actions/upload-artifact``` default action.
+
+```
+...
+ - name: Upload Mutation Report
+   uses: actions/upload-artifact@v3.0.0
+   with:
+     name: artifact-name
+     path: (Directory or File)
+...
+```
+Point the ```path``` variable at a directory name or a file and the action will upload it into pipeline storage.
+
+Once the build is complete - the artefacts are visible in the pipeline summary:
+
+![image](https://user-images.githubusercontent.com/4068380/167491972-68fed754-197c-4ac3-a752-9c8114d43b8c.png)
+
+## Downloading Artifacts
+
+In the same way we can upload artifacts later pipeline actions can access the uploaded artifact with the ```actions/download-artifact@v3``` default action.
+
+```
+...
+- uses: actions/download-artifact@v3
+  with:
+    name: artifact-name
+    path: (Path for the artifact to be downloaded to.)
+...
+```
+
