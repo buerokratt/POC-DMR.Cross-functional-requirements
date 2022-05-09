@@ -50,7 +50,24 @@ steps:
 
 ## Versioning in CI pipelines (code based and container based)
 
-<Investigate and document>
+If we wish to drive our versions from GitHub Pipeline builds the variable ```github.run_number``` gives us the specific build which created the artifact.
+
+So we'd simply tag the container with a version number when pushing it up to a repository as as follows:
+  
+```
+- name: Build and push
+  uses: docker/build-push-action@v3
+  with:
+    file: ${{ inputs.container-path }}
+    context: ${{ inputs.container-context }}
+    push: true
+    tags: |
+      ghcr.io/organisation/container-name:latest
+      ghcr.io/organisation/container-name:1.0.${{github.run_number}} 
+```
+Breaking changes would require changes to the pipeline to increment the major or minor version number, or store that value in a variable.  
+
+If we wanted to version the assemblies, we could simply modify the code in the pipeline to specify this value and _then_ build the code.
 
 ## Workflows calling other workflows with parameters
 
