@@ -49,7 +49,7 @@ steps:
       super_secret: ${{ secrets.SuperSecret }}
 ```
 
-[GitHub Documentation on Encrypted Secrets] (https://docs.github.com/en/actions/security-guides/encrypted-secrets)
+[GitHub Documentation on Encrypted Secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets)
 
 <Write clever things in here with examples of usage...>
 
@@ -77,7 +77,7 @@ If we wanted to version the assemblies, we could simply modify the code in the p
 
 ## Workflows calling other workflows with parameters
 
-This can be done using [Composite Actions] (https://github.blog/changelog/2021-08-25-github-actions-reduce-duplication-with-action-composition/)
+This can be done using [Composite Actions](https://github.blog/changelog/2021-08-25-github-actions-reduce-duplication-with-action-composition/)
 
 Actions should be located in a `.github/actions` folder
 
@@ -94,4 +94,4 @@ Each action must:
     ``` 
 - Secrets must be passed to composite actions as parameters (inputs)
 
-An alternative method is using [Reusable Workflows] (https://github.blog/2022-02-10-using-reusable-workflows-github-actions/) but these can be slightly more limiting
+An alternative method is using [Reusable Workflows](https://github.blog/2022-02-10-using-reusable-workflows-github-actions/) but these can be slightly more limiting
