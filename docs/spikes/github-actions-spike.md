@@ -37,7 +37,7 @@ These secrets can be accessed via the following steps:
 
 
 ### Organisation Level
-- Can be used with access policies to control which repositories can use organization secrets
+- Can be used with access policies to control which repositories can use organisation secrets
 - Share secrets between multiple repositories, which reduces the need for creating duplicate secrets
 
 ### Accessing Secrets in Actions
