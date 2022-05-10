@@ -151,7 +151,8 @@ Once the build is complete - the artefacts are visible in the pipeline summary:
 
 ## Downloading Artifacts
 
-In the same way we can upload artifacts later pipeline actions can access the uploaded artifact with the ```actions/download-artifact@v3``` default action.
+In the same way we can upload artifacts later and pipeline actions can access the uploaded artifact with the ```actions/download-artifact@v3``` default action.
+
 
 ```
 ...
