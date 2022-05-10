@@ -24,7 +24,8 @@ To enable peer reviewing of jobs/stages we can use environments, to set this up 
 
 ## Secret handling and configuration in CI/CD
 
-GitHub has it's own secrets repository which can operate at both the repository and organisational level.
+GitHub has its own secrets repository which can operate at both the repository and organisational level.
+
 
 These secrets can be accessed via the following steps:
 1. The `settings` tab of the main page of the repository/organisation
