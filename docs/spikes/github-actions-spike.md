@@ -81,15 +81,48 @@ Actions should be located in a `.github/actions` folder
   ![GitHub Actions](../images/github_actions.png)
 
 Each action must:
-- Be in a named directory in the actions folder and contain one file called action.yml
+- Be in a named directory in the actions folder and contain one file called `action.yml`
 - Have a name and description
 - Inputs must be specified
 - Include the syntax
     ```
     runs: 
-    using: composite
+      using: composite
     ``` 
 - Secrets must be passed to composite actions as parameters (inputs)
+
+### Composite workflows in action
+**In the main workflow - workflow.yml**
+- Reference the action by the name of the folder it sits in
+```
+...
+ - name: Deploy container
+   uses: ./.github/actions/deploy-container
+   with:
+     ghcr-username: ${{ github.repository_owner }}
+...
+```
+**Basic action.yml template**
+```
+name: "Deploy container to ghcr"
+description: "Deploys container to github container registry"
+inputs:
+  ghcr-username:
+    requred: true
+    description: "Username for ghcr"
+  ghcr-password:
+    requried: true
+    description: "Password for ghcr"
+runs:
+  using: "composite"
+  steps:
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v2
+      with:
+        registry: ghcr.io
+        username: ${{ inputs.ghcr-username }}
+        password: ${{ inputs.ghcr-password }}
+```
 
 An alternative method is using [Reusable Workflows](https://github.blog/2022-02-10-using-reusable-workflows-github-actions/) but these can be slightly more limiting
 
