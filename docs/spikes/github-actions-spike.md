@@ -58,7 +58,8 @@ steps:
 
 If we wish to drive our versions from GitHub Pipeline builds the variable ```github.run_number``` gives us the specific build which created the artifact.
 
-So we'd simply tag the container with a version number when pushing it up to a repository as as follows:
+So we'd simply tag the container with a version number when pushing it up to a repository as follows:
+
   
 ```
 - name: Build and push
