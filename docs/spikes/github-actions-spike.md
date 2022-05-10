@@ -4,7 +4,8 @@ This document outlines what we learnt in the spike [Cross: Github Actions [Spike
 
 ## Investigate multi-stage deployment pipelines using Actions
 
-Multistage deployment is possible in Github by using named jobs such as `dev`, `staging`, `production` etc.
+Multi-stage deployment is possible in GitHub by using named jobs such as `dev`, `staging`, `production` etc.
+
 
 To enable peer reviewing of jobs/stages we can use environments, to set this up requires creating the environment:
 ![Settings](../images/github_environments.png)
