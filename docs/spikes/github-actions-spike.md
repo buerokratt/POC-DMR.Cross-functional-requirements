@@ -11,7 +11,8 @@ To enable peer reviewing of jobs/stages we can use environments, to set this up 
 1. Going to the repository settings
 2. Selecting `Environments` on the left
 3. Creating a new environment
-4. Selecting `Required reviewers` and entering the usernames of revieweres
+4. Selecting `Required reviewers` and entering the usernames or teams of reviewers
+
 5. In the YAML file use the `environment` keyword to sepecify the name of the environment (exact spelling necessary)
     ```
     deploydev:
