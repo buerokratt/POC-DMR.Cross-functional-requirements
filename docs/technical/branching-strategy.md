@@ -18,6 +18,8 @@ Feature branch name should consist of prefex followed by issue number and issue 
 
 For example:
 `feature/4-dmr-setup-cd` is for is feature branch for issue [DMR: Setup CD](https://github.com/buerokratt/DMR/issues/4)
+
+After successful merge into main branch the used branch should be deleted.
 # TL;DR
 * Short living feature branches
 * Feature branch goes back to `main` branch after it passes the CI pipeline and code review.
