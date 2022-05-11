@@ -9,7 +9,7 @@ Feature branches should only be merge into main via **pull request** - **PR**
 
 PRs can only be merged into main with **squash merge**
 
-For branching prefexes are used:
+For branching prefixes are used:
 - release/*
 - feature/*
 - hotfix/*
