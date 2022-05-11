@@ -35,21 +35,20 @@ jobs:
         working-directory: ${{ inputs.working_directory }}
         shell: bash
     env:
-      -template: ../../environments/dev.tfvars
       ARM_CLIENT_ID: ${{ secrets.azure_ad_client_id }}
       ARM_CLIENT_SECRET: ${{ secrets.azure_ad_client_secret }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.azure_subscription_id }}
       ARM_TENANT_ID: ${{ secrets.azure_ad_tenant_id }}
       tf_vars: ${{ inputs.tf_vars }}
       backend_config: ${{ inputs.backend_config }}
-
+  
     steps:
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
       uses: actions/checkout@v3
     
     - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v1
+      uses: hashicorp/setup-terraform@v2
  
     # Checks that all Terraform configuration files adhere to a canonical format
     - name: Terraform Format
@@ -59,7 +58,7 @@ jobs:
     - name: Terraform Init
       run: terraform init -backend-config=$backend_config
     
-    # Ensures all the terraform code and files are syntaxically correct 
+    # Ensures all the terraform code and files are syntactically correct 
     - name: Terraform Validate
       run: terraform validate
     
