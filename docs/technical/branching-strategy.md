@@ -14,7 +14,7 @@ For branching prefexes are used:
 - feature/*
 - hotfix/*
 
-Feature branch name should consist of prefex followed by issue number and issue title in lowercase, concatinated wiht hyphens.
+Feature branch name should consist of prefix followed by issue number and issue title in lowercase, concatenated with hyphens.
 
 For example:
 `feature/4-dmr-setup-cd` is for is feature branch for issue [DMR: Setup CD](https://github.com/buerokratt/DMR/issues/4)
