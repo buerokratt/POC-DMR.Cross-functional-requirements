@@ -4,12 +4,7 @@ on:
     branches:
     - main
     paths: ['.github/workflows/**','terraform/**']
- 
-  pull_request:
-    branches: 
-    - main
-    paths: ['.github/workflows/**','terraform/**']
-
+    
 jobs:
   Development_deployment:
     uses: ./.github/workflows/reusable-terraform-deployment.yml
