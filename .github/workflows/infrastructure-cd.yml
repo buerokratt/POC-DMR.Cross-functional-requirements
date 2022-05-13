@@ -1,13 +1,18 @@
-name: Terraform_deploy
+name: Infrastructure_cd
 on:
   push:
     branches:
     - main
+    paths: ['.github/workflows/**','terraform/**']
+ 
   pull_request:
+    branches: 
+    - main
+    paths: ['.github/workflows/**','terraform/**']
 
 jobs:
-  deploy_dev:
-    uses: ./.github/workflows/terraform-deploy-template.yml
+  Development_deployment:
+    uses: ./.github/workflows/reusable-terraform-deployment.yml
     with:
       environment: Development
       working_directory: ./terraform/modules/main
@@ -18,4 +23,5 @@ jobs:
       azure_ad_client_secret: ${{ secrets.AZURE_AD_CLIENT_SECRET }}
       azure_subscription_id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
       azure_ad_tenant_id: ${{ secrets.AZURE_AD_TENANT_ID }}
-      
+      #TODO: Move this to key vault later on
+      azure_storage_account_key: ${{ secrets.AZURE_STORAGE_ACCOUNT_KEY }}
