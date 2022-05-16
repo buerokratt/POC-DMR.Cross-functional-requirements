@@ -10,7 +10,6 @@ variable "storage_account_name" {
 
 # Configure the Azure provider
 terraform {
-  backend "azurerm" {}
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
@@ -26,15 +25,7 @@ provider "azurerm" {
 
 #Test
 resource "azurerm_storage_container" "test_container" {
-  name                  = "test2"
+  name                  = "buerokratt-test-container"
   storage_account_name  = var.storage_account_name
   container_access_type = "private"
 }
-
-
-
-
-
-
-
-

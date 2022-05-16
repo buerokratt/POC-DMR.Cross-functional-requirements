@@ -1,4 +1,4 @@
-name: Terraform_deploy_workflow
+name: Reusable_terraform_deployment
 on:
   workflow_call:
     inputs:
@@ -23,12 +23,13 @@ on:
         required: true
       azure_ad_tenant_id:
         required: true
-        
+      azure_storage_account_key:
+        required: true
+
 jobs:
-  terraform:
+  Terraform:
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
-    name: Terraform
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
       run:
@@ -39,6 +40,8 @@ jobs:
       ARM_CLIENT_SECRET: ${{ secrets.azure_ad_client_secret }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.azure_subscription_id }}
       ARM_TENANT_ID: ${{ secrets.azure_ad_tenant_id }}
+      #TODO: Move this to key vault later on
+      ACCOUNT_KEY: ${{ secrets.azure_storage_account_key }}
       tf_vars: ${{ inputs.tf_vars }}
       backend_config: ${{ inputs.backend_config }}
   
@@ -68,5 +71,4 @@ jobs:
  
     # On push to main, build or change infrastructure according to Terraform configuration files
     - name: Terraform Apply
-      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       run: terraform apply --var-file=$tf_vars -auto-approve -input=false 
