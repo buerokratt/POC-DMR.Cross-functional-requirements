@@ -1,12 +1,16 @@
 # Code Analysis
 
-Code quality analysis is a method of analysing code and enforcing rules that aim to maintain consistent code style and quality standards in the codebase. Read more about code quality analysis on .net here: https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/overview.
+Code quality analysis is a method of analysing code and enforcing rules that aim to maintain consistent code style and quality standards in the codebase. 
+
+Read more about code quality analysis on .net here: https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/overview.
 
 ## .editorconfig
 
 .editorconfig files are used to define the rules that are applied to code. You can configure your own or start from a pre-defined template. See https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/configuration-files#editorconfig
 
-For the Burokratt project we use the "All Rules Enabled" `.editorconfig` file that is provided with the [Microsoft.CodeAnalysis.NetAnalyzers v6.* Nuget Package](https://www.nuget.org/packages/Microsoft.CodeAnalysis.NetAnalyzers). The rule set is used as-is with the following changes (see https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/configuration-options#severity-level for details on severity options):
+For the Burokratt project we use the "All Rules Enabled" `.editorconfig` file that is provided with the [Microsoft.CodeAnalysis.NetAnalyzers v6.* Nuget Package](https://www.nuget.org/packages/Microsoft.CodeAnalysis.NetAnalyzers).
+
+The rule set is used as-is with the following changes (see https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/configuration-options#severity-level for details on severity options):
 
 - `dotnet_analyzer_diagnostic.category-Style.severity` is set to  `warning`. This sets a blanket warning severity to all style rules.
 - `dotnet_analyzer_diagnostic.category-Naming.severity` is set to `warning`. This sets a blanket warning severity to all style rules.
@@ -15,7 +19,7 @@ For the Burokratt project we use the "All Rules Enabled" `.editorconfig` file th
 
 ## Project Configuration
 
-The objective for Burokratt is that the project build fails if any rules are violated. This will affect local project builds but will also cause the CI pipline to fail, which prevents code with violations from merging to the `main` branch.
+The objective for Burokratt is that the project build fails if any rules are violated. This will affect local project builds but will also cause the CI pipeline to fail, which prevents code with violations from merging to the `main` branch.
 
 To enable this, the following project settings have been defined:
 
@@ -28,8 +32,8 @@ To enable this, the following project settings have been defined:
 ## Steps to apply Code Analysis
 
 Repeat for all projects in solution (including test projects)
-1. Copy the `.editorconfig` file from https://github.com/buerokratt/DMR/tree/main/src/Dmr.Api
-2. Add `.editorconfig` to root of project 
+1. Copy the `.editorconfig` file from https://github.com/buerokratt/DMR/blob/main/src/Dmr.Api/.editorconfig
+2. Add `.editorconfig` from step 1 to root of project 
 3. Add the following settings to the `*.csproj` file within the first `<PropertyGroup>`
 ```
 <EnableNETAnalyzers>true</EnableNETAnalyzers>
