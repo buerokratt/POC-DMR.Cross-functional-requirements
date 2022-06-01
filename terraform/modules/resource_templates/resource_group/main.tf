@@ -1,8 +1,4 @@
-variable "resource_group_name" {
-  description = "Name of the resource group"
-}
-
-resource "azurerm_resource_group" "name" {
+resource "azurerm_resource_group" "resource_group" {
   name     = var.resource_group_name
-  location = "uksouth"
+  location = var.resource_group_location
 }
