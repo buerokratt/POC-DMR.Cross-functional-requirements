@@ -1,4 +1,4 @@
-resource_group_name     = "rg-beurokratt-dev"
+resource_group_name     = "rg-byk-dev"
 resource_group_location = "uksouth"
 storage_account_name    = "bykstgdev"
 
