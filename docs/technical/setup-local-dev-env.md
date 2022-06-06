@@ -1,5 +1,24 @@
 # Setting up local development environment
 
+Prerequisite Technology Installs
+- Chocolatey
+  * Windows software manager - think of it like NuGet but for Windows software
+  * Setup guide: https://docs.chocolatey.org/en-us/choco/setup
+- Azure CLI 
+  * A cross-platform command-line tool to connect to Azure and execute administrative commands on Azure resource
+  * Installation Guide: https://docs.microsoft.com/en-us/cli/azure/install-azure-cli
+  * Chocolatey Command: `choco install azure-cli`
+- Terraform
+  * Infrastructure as Code (IaC) tool
+  * Installation Guide: https://learn.hashicorp.com/tutorials/terraform/install-cli
+  * Chocolatey Command recommended: `choco install terraform`
+- Terraform Extension (only if using VS Code)
+  * VS Code extension to help with syntax highlighting, IntelliSense, code navigation, code formatting, module explorer, etc.
+  * Installation Guide: https://marketplace.visualstudio.com/items?itemName=HashiCorp.terraform
+- Make
+  * A tool to define a set of steps 
+  * Chocolatey Command: `choco install make`
+
 Creating a service principle
 1. Sign in to your Azure Account through the Azure portal
 2. Select `Azure Active Directory`
