@@ -2,15 +2,15 @@
 
 The architecture for Buerokratt is almost entirely Kubernetes based.  For the MVP we will be using the Azure Kubernetes Service (AKS).
 
-GitHub will run the CI/CD pipelines via GitHub Actions.
+GitHub hold source code for the various components being built and will also host the CI/CD pipelines via GitHub Actions.
 
 ![Development Workflow](./DevelopmentWorkflow.editable.png)
 
 ## Development Environment
 
-Whilst the code is still on a developers machine there are numerous opportunities to avoid and resolve security issues which may arise.
+Whilst the code is still on a developer's machine there are numerous opportunities to avoid and resolve security issues which may arise.
 
-### Language Best Practice
+### Development Language Best Practice
 
 Many tools exist which can enforce best practice on the code developed within a project.  These take the form of simple warnings displayed to the developer for common issues with code.  The developer then needs to resolve the issue or add an exception to the codebase.  Exceptions to best practice would be examined in code review and verified before the code is committed.
 
@@ -26,7 +26,7 @@ Other languages have 'linting' tools which should be considered when onboarding 
 
 #### .NET Packages
 
-.NET Core references published open source functionality via Nuget Packages.  These packages may have published security issues, Common Vulnerabilities and Exposures (CVE) or GitHub Security Advisory (GHSA) which will require investigation and replacement by the development team to ensure executing code has the best possible security posture.
+.NET Core references published open source functionality via NuGet Packages.  These packages may have published security issues, Common Vulnerabilities and Exposures (CVE) or GitHub Security Advisory (GHSA) which will require investigation and replacement by the development team to ensure executing code has the best possible security posture.
 
 Tools like GitHub's [Dependabot](https://docs.github.com/en/code-security/dependabot) and [SonarQube](https://www.sonarqube.org/) have the capability to warn developers when these vulnerabilities are discovered.  
 Even the .NET command line tool provides a basic view of dependency issues:
@@ -37,13 +37,13 @@ dotnet list package --vulnerable --include-transitive
 
 This [tooling](https://devblogs.microsoft.com/nuget/how-to-scan-nuget-packages-for-security-vulnerabilities/) is very basic however.
 
-At a minimum tooling should be used to warn developers of issues would run in the build pipeline.  Ideally developers are notified as soon as vulnerabilities are discovered.
+At a minimum tooling should be used to warn developers of issues would run in the build pipeline.  Ideally, developers are notified as soon as vulnerabilities are discovered and changes can be made even for components which aren't in active development.
 
 #### Password scanning
 
 All code repos in the Buerokratt platform are public on GitHub.  This means that secrets should be carefully segregated from code.  
 
-In order to prevent developers committing secrets to public repos the projection should implement password scanning.
+In order to prevent developers committing secrets to public repos this project should implement password scanning which would run before changes are committed.
 
 This can be done on a Git commit hook and is documented here:
 
@@ -51,7 +51,7 @@ This can be done on a Git commit hook and is documented here:
 
 ## Built Artefacts
 
-This project aims to package all shipping code in Docker Containers, so we need to validate they are free of known vulnerabilities.
+This project aims to package all shipping code in Docker Containers, therefore to remain as secure as possible the project will need to validate they are free of known vulnerabilities.
 
 ### Containers
 
@@ -72,6 +72,8 @@ Some consideration should be given to containers which are in production when vu
 AKS regularly make available updated versions of Kubernetes.  These contain new features, but most importantly for this document, security patches.
 
 Whilst in operation - these updates will need to be evaluated an applied.
+
+Other Kubernetes implementations will also need to be regularly patched and maintained.
 
 ### Don't run containers as root
 
@@ -96,11 +98,11 @@ Kubernetes Namespaces are separate from one another although they can communicat
 
 RBAC can be applied at the namespace level and will give admins more granularity and control over the services deployed to namespaces under their control.
 
-For the purposes of this project - DMR and CentOps should reside in their own namespaces (byk-dmr and byk-centops for instance) .  Hosted bots *could* reside in a shared 'bots' namespace as they may have similar access patters and permissions (unless hosted bots have special security considerations)  
+For the purposes of this project - DMR and CentOps should reside in their own namespaces ('byk-dmr' and 'byk-centops', for instance) .  Hosted bots *could* reside in a shared 'bots' namespace as they may have similar access patters and permissions (unless hosted bots have special security considerations)  
 
 ### Specify memory and CPU quotas
 
-In order to prevent containers affecting other pods in the cluster it's often recommended to specify cpu and memory limits.  This can be done in the helm chart.
+In order to prevent containers affecting other pods in the cluster it's often recommended to specify CPU usage and memory limits.  This can be done in the helm chart.
 
 ```yaml
 ...
@@ -116,7 +118,7 @@ resources:
 
 The process of determining sensible limits can be a tricky one, however.  K8s will terminate the running pod which has gone beyond it's limits, so these values should be carefully chosen.  In the event of a pod exceeding this values - K8s will recycle the pod, so sensible values are a must.
 
-### Read only containers where possible
+### Specify 'Read Only' access for containers where possible
 
 ```yaml
   containers:
@@ -146,7 +148,7 @@ Secrets pertain to data connection strings, access keys or credentials.
 
 GitHub Secrets and Azure Key Vault both offer this capability and can be selected based on the use case.
 
-### Vlans for Resource Protection
+### vLANs for Resource Protection
 
 Where possible - we can ensure that traffic remains 'hidden' from the internet by creating Virtual Lans.  This project intends to use Cosmos DB as a datastore for the CentOps Service.  
 
@@ -185,7 +187,7 @@ Metrics to capture:
 * Logins (Unsuccessful and Successful).
 * Resource access (Unsuccessful and Successful).
 * Exceptions and failures.
-* Service startup and restart.
+* Service start-up and restart.
 
 Audit Access:
 
