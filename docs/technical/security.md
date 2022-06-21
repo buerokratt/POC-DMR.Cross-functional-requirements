@@ -1,10 +1,10 @@
 # Security Architecture
 
-The architecture for Buerokratt is almost entirely Kubernetes based.  For the MVP we will be using the Azure Kubernetes Service (AKS).
+The architecture for **Buerokratt**s projects DMR and CentOps is entirely Kubernetes based.  For the MVP we will be using the Azure Kubernetes Service (AKS).
 
 GitHub hold source code for the various components being built and will also host the CI/CD pipelines via GitHub Actions.
 
-![Development Workflow](./DevelopmentWorkflow.editable.png)
+![Development Workflow](./.images/DevelopmentWorkflow.editable.png)
 
 ## Development Environment
 
