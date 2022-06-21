@@ -116,7 +116,7 @@ resources:
 ...
 ```
 
-The process of determining sensible limits can be a tricky one, however.  K8s will terminate the running pod which has gone beyond it's limits, so these values should be carefully chosen.  In the event of a pod exceeding this values - K8s will recycle the pod, so sensible values are a must.
+The process of determining sensible limits can be a tricky one, however.  K8s will terminate the running pod which has gone beyond it's limits, so these values should be carefully chosen.
 
 ### Specify 'Read Only' access for containers where possible
 
