@@ -45,17 +45,17 @@ All code repos in the Buerokratt platform are public on GitHub.  This means that
 
 In order to prevent developers committing secrets to public repos this project should implement password scanning which would run before changes are committed.
 
-This can be done on a Git commit hook and is documented here:
+This can be done with a Git commit hook and is documented [here](https://github.com/wbreza/pre-commit-hooks/tree/main/detect-secrets)
 
 > See the CentOps repo for an example of this setup.  This should be applied to all repos.
 
-## Built Artefacts
+## Build Artefacts
 
 This project aims to package all shipping code in Docker Containers, therefore to remain as secure as possible the project will need to validate they are free of known vulnerabilities.
 
 ### Containers
 
-Docker Containers most commonly use base images which contain various component which themselves may have security vulnerabilities.  Known CVEs may exist for components within these images which may expose vulnerabilities aside from the code and dependencies directly shipped by this project.
+Docker Containers most commonly use base images which contain various components which themselves may have security vulnerabilities.  Known CVEs may exist for components within these images which may expose vulnerabilities aside from the code and dependencies directly shipped by this project.
 
 Tools exist to scan containers for vulnerabilities.  One such tool is, Container Scan which can be run as part of the CI pipeline.
 
@@ -64,6 +64,30 @@ Tools exist to scan containers for vulnerabilities.  One such tool is, Container
 Other container scanning technologies exist if this is found to be unsuitable.
 
 Some consideration should be given to containers which are in production when vulnerabilities are discovered.  This may mean rescanning containers on a regular basis and raising alerts if security issues are discovered.
+
+#### Reference Container Image Digests
+
+To ensure precise versions of images are used throughout, calculated SHA256 digests can be used.
+
+This applies to base images used to build containers created by this project:
+
+e.g.:
+
+```Dockerfile
+FROM mcr.microsoft.com/dotnet/sdk@sha256:230aaa417fa4e08c1bc601ecd7b95fd7e20c3dfbb7360868d8d1a9de6513380c
+
+...
+```
+
+SHA256 digests can also be used to reference Buerokratt produced containers when they are executed within Kubernetes.
+
+SHA256 digests can be calculated during the build and recorded during the container publishing phase.
+
+> Base image digests can be obtained from Docker Hub or from the local development machine's image cache.
+
+```bash
+docker images --digests
+```
 
 ## Kubernetes
 
@@ -98,7 +122,7 @@ Kubernetes Namespaces are separate from one another although they can communicat
 
 RBAC can be applied at the namespace level and will give admins more granularity and control over the services deployed to namespaces under their control.
 
-For the purposes of this project - DMR and CentOps should reside in their own namespaces ('byk-dmr' and 'byk-centops', for instance) .  Hosted bots *could* reside in a shared 'bots' namespace as they may have similar access patters and permissions (unless hosted bots have special security considerations)  
+For the purposes of this project - DMR and CentOps should reside in their own namespaces ('byk-dmr' and 'byk-centops', for instance) .  Hosted bots *could* reside in a shared 'bots' namespace as they may have similar access patterns and permissions (unless hosted bots have special security considerations)  
 
 ### Specify memory and CPU quotas
 
@@ -116,7 +140,7 @@ resources:
 ...
 ```
 
-The process of determining sensible limits can be a tricky one, however.  K8s will terminate the running pod which has gone beyond it's limits, so these values should be carefully chosen.
+The process of determining sensible limits can be a tricky one, however.  K8s will terminate the running pod which has gone beyond it's limits, so these values should be carefully chosen.  (Note. Keep in mind these limits/request values and their impact on autoscaling.)
 
 ### Specify 'Read Only' access for containers where possible
 
@@ -129,6 +153,10 @@ The process of determining sensible limits can be a tricky one, however.  K8s wi
 ```
 
 > We may need to experiment with this one to ensure .NET containers can be run read only.
+
+### Use tooling to validate Helm Charts for security issues.
+
+[Checkov](https://www.checkov.io/) is a tool which can scan Helm charts for misconfigurations and generate warnings which can trigger failures in the CI infrastructure pipeline.
 
 ## Deployed Infrastructure
 
@@ -176,7 +204,7 @@ We should consider opportunities to only allowing access to private endpoints fr
 
 ### Versioning
 
-Developed Components should identify the version of the code they represent.  This allows participants in the Buerokratt system to gate interaction to other components based on their version.  On API endpoints this might be a simple X-Byk-Version header that ties that component to a particular build.
+Developed Components should identify the version of the code they represent.  This allows participants in the Buerokratt system to gate interaction to other components based on their version.  On API endpoints this might be a simple X-Byk-CentOps-Version header that ties that component to a particular build.
 
 
 ### Service Telemetry and Monitoring
@@ -195,7 +223,7 @@ Audit Access:
 * Admin APIs
 * Public APIs
 
-Anomalous usage patters should create alerts for the attention of service owners.
+Anomalous usage patterns should create alerts for the attention of service owners.
 
 ### Authentication and Authorisation
 
