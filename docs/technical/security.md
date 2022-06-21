@@ -176,7 +176,8 @@ We should consider opportunities to only allowing access to private endpoints fr
 
 ### Versioning
 
-Developed Components should identify the version of the code they represent.  This allows participants in the Beurokratt system to gate interaction to other components based on their version.  On API endpoints this might be a simple X-Byk-Version header that ties that component to a particular build.
+Developed Components should identify the version of the code they represent.  This allows participants in the Buerokratt system to gate interaction to other components based on their version.  On API endpoints this might be a simple X-Byk-Version header that ties that component to a particular build.
+
 
 ### Service Telemetry and Monitoring
 
