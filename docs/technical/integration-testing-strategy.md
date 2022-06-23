@@ -52,5 +52,45 @@ There may be some minor extensions required to mock bot to ensure that when DMR 
 
 ## Platform and Tooling
 
+All integration tests will be written using C# and XUnit. This is a consistent choice with the unit tests for the Bürokratt system.
+
+The tests will use an `appsettings.json` and `appsettings.developments.json` files to store configuration information for accessing components (endpoints, api keys etc).
+
+Developers will be able to run tests locally using the `dotnet test` command.
+
 ## Pipelines
+
+The goal of running tests as part of pipelines that the outcome of a test can be used a gate for progressing code to the next stage. For example if a test fails, then the automated progression of code from dev to production can be halted.
+
+The challenge with running integration tests as part of a pipeline is that the code must be available in its integrated form in order for the test to work, so to a certain extent the pipline must have progressed before integration tests can run.
+
+To address these concerns, the integration tests will run in two places.
+
+> NOTE: For the purposes of this document, the term "code repository" refers to the following repositories which contain application code for Bürokratt 
+>
+> https://github.com/buerokratt/Mock-Classifier
+>
+> https://github.com/buerokratt/Mock-Bot
+>
+> https://github.com/buerokratt/CentOps
+>
+> https://github.com/buerokratt/DMR
+
+### Docker via code repository CI pipeline
+
+One advantage of all the code components being hosted as containers is that we can easily run these containers locally via Docker, they do not necessarily need to be deployed to Azure to be "integrated".
+
+There will be a new pipeline added to each code repository which uses [Docker Compose](https://docs.docker.com/compose/) to pull and run the containers that published as part of the `ci-build-publish-main.yml` and execute the integration tests against these locally running containers. 
+
+This pipeline will be a requirement for PR's and merges (a "gate") just like the other pipelines in each code repository.
+
+While this does not give us full assurance that the components integrate in their deployed state, it will enable us to catch integration issues early on.
+
+### Deployed components via infrastructure CD pipeline
+
+In addition to running the integration tests as part of the code repository CI pipeline, the tests will be run again against the deployed version of the code in the Azure Dev environment.
+
+This will use environment data from Terraform to exercise the live components.
+
+Sucessfull completion of the test against the Dev environment will be a gate for the code progressing to the prod environment.
 
