@@ -22,34 +22,33 @@ Integration tests are not to be confused with "unit tests" which make assertions
 
 ## Tests and Assertions
 
-This section will outline the integration tests that will be created and what assertions they will make
+This section will outline the integration tests that will be created and what assertions they will make. This only outlines the initial "happy path" tests that are required to build assurances that the integrated system is operating correctly.
 
-### Classify a message: normal path
+In passing these tests, all system components (Mock Bot, DMR, Mock Classifier and CentOps) will have been exercised. Additional tests which check edge cases and error cases can be added later.
+
+### Classify a message
 
 This test asserts that when DMR receives an unclassified message which is correctly formed, it is able to classify it and reply to the calling participant with the classification. This is steps 1-4 from [Milestones.md](https://github.com/buerokratt/Project-Documentation-Management/blob/main/Milestones.md) and represents milestone 1.
 
-Input: Test generates a correctly formed, unclassified message with all appropriate headers and submits it to DMR.
+Input: Test requests that mock bot generates an unclassified message with all appropriate headers and submits it to DMR.
 
-Expected output: DMR calls back to the participant defined by the `X-Sent-By` header with a classification. Assert that the classification is what was expected for the message contents.
+Expected output: DMR calls back to the mock bot with a classification. Assert that the classification is what was expected for the message contents.
 
-### Bot-to-bot: normal path
+### Bot-to-bot
 
 This test asserts that a bot can route a classified message to another bot via DMR. This represents steps 6 and 7 from [Milestones.md](https://github.com/buerokratt/Project-Documentation-Management/blob/main/Milestones.md) and milestone 2
 
-Input: Test generates a correctly formed, classified message with all appropriate headers and submits it to DMR.
+Input: Test requests that mock bot generates a classified message with all appropriate headers and submits it to DMR.
 
-Expected output: DMR forwards the message to the correct participant. Test asserts that the message was received and is in the expected format.
+Expected output: DMR forwards the message to the correct mock bot. Test asserts that the message was received and is in the expected format.
 
 ## How to make assertions on HTTP calls
 
-The architecture of the Bürokratt system operates on a series of chained HTTP requests and the final step of any interaction is for a participant (represented as a mock bot currently) to receive a HTTP request from DMR.
+The architecture of the Bürokratt system operates on a series of chained HTTP requests and the final step of any interaction is for a mock bot to receive a HTTP request from DMR.
 
-In order to assert that these HTTP requests are being received we ???
+In order to assert that these HTTP requests are being received, we can use some of the existing endpoints that are included in the mock bot to create chats and post messages to a chat (thereby sending it to DMR).
 
-1. Test-specific endpoint that returns inbound http requests received by component in x time period (a bit like https://github.com/martinkearn/Table-Log-Api)
-2. Logs (app insights logs)
-
-
+There may be some minor extensions required to mock bot to ensure that when DMR responds back to the bot, the message is added to the Chat (currently it is disposed). This will enable us to simply get the chat and inspect the contents which should contain both the initial message out to DMR and the classified response back from DMR.
 
 ## Platform and Tooling
 
