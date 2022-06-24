@@ -28,7 +28,7 @@ In passing these tests, all system components (Mock Bot, DMR, Mock Classifier an
 
 ### Classify a message
 
-This test asserts that when DMR receives an unclassified message which is correctly formed, it is able to classify it and reply to the calling participant with the classification. This is steps 1-4 from [Milestones.md](https://github.com/buerokratt/Project-Documentation-Management/blob/main/Milestones.md) and represents milestone 1.
+This test asserts that when DMR receives a correctly formed unclassified message, it is able to classify it and reply to the calling participant with the classification. This is steps 1-4 from [Milestones.md](https://github.com/buerokratt/Project-Documentation-Management/blob/main/Milestones.md) and represents milestone 1.
 
 Input: Test requests that mock bot generates an unclassified message with all appropriate headers and submits it to DMR.
 
