@@ -92,5 +92,5 @@ In addition to running the integration tests as part of the code repository CI p
 
 This will use environment data from Terraform to exercise the live components.
 
-Sucessfull completion of the test against the Dev environment will be a gate for the code progressing to the prod environment.
+Successful completion of the test against the Dev environment will be a gate for the code progressing to the prod environment.
 
