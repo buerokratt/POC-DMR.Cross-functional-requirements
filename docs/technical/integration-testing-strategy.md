@@ -30,6 +30,8 @@ In passing these tests, all system components (Mock Bot, DMR, Mock Classifier an
 
 This test asserts that when DMR receives a correctly formed unclassified message, it is able to classify it and reply to the calling participant with the classification. This is steps 1-4 from [Milestones.md](https://github.com/buerokratt/Project-Documentation-Management/blob/main/Milestones.md) and represents milestone 1.
 
+Setup: No setup required.
+
 Input: Test requests that mock bot generates an unclassified message with all appropriate headers and submits it to DMR.
 
 Expected output: DMR calls back to the mock bot with a classification. Assert that the classification is what was expected for the message contents.
@@ -37,6 +39,8 @@ Expected output: DMR calls back to the mock bot with a classification. Assert th
 ### Bot-to-bot
 
 This test asserts that a bot can route a classified message to another bot via DMR. This represents steps 6 and 7 from [Milestones.md](https://github.com/buerokratt/Project-Documentation-Management/blob/main/Milestones.md) and milestone 2
+
+Setup: The test may need to ensure that the bots used in the test are enrolled to CentOps. This will happen via the CentOps APIs.
 
 Input: Test requests that mock bot generates a classified message with all appropriate headers and submits it to DMR.
 
