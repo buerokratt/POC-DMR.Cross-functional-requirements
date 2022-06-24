@@ -62,7 +62,7 @@ Developers will be able to run tests locally using the `dotnet test` command.
 
 The goal of running tests as part of pipelines that the outcome of a test can be used a gate for progressing code to the next stage. For example if a test fails, then the automated progression of code from dev to production can be halted.
 
-The challenge with running integration tests as part of a pipeline is that the code must be available in its integrated form in order for the test to work, so to a certain extent the pipline must have progressed before integration tests can run.
+The challenge with running integration tests as part of a pipeline is that the code must be available in its integrated form in order for the test to work, so to a certain extent the pipeline must have progressed before integration tests can run.
 
 To address these concerns, the integration tests will run in two places.
 
