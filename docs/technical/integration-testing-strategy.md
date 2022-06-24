@@ -54,7 +54,7 @@ There may be some minor extensions required to mock bot to ensure that when DMR 
 
 All integration tests will be written using C# and XUnit. This is a consistent choice with the unit tests for the Bürokratt system.
 
-The tests will use an `appsettings.json` and `appsettings.developments.json` files to store configuration information for accessing components (endpoints, api keys etc).
+The tests will use an `appsettings.json` and `appsettings.developments.json` files (or access environment variables if running in a pipeline) to store configuration information for accessing components (endpoints, api keys etc).
 
 Developers will be able to run tests locally using the `dotnet test` command.
 
