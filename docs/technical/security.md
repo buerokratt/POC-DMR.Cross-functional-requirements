@@ -225,6 +225,38 @@ Audit Access:
 
 Anomalous usage patterns should create alerts for the attention of service owners.
 
-### Authentication and Authorisation
+### Authentication and Authorisation for CentOps
 
-[TBD] (This is still being worked out)
+![Key Flow Diagram](./.images/ApiKeys.editable.png)
+
+For the purposes of this project, we're implementing API keys for the CentOps Admin API and Public APIs.
+
+The Private API will be called by CentOps Administrators who will be responsible for on-boarding new participants during the onboarding process.
+
+#### Authenticating with the CentOps Private Admin API
+
+1. Terraform can generate an Admin API Key on deployment or it can be explicitly provided as a GitHub/Azure KeyVault secret and add it to the CentOps configuration.  Only holders of this API Key will be able to call the Admin API.
+
+> Note. We're expecting Ruuter to act as a proxy for this API post project. In this scenario, Ruuter would need to provide the API Key to contact this endpoint when forwarding traffic.
+
+#### On Boarding a New Participant and Authenticating with the Public API
+
+The onboarding process is a crucial part of obtaining an API key.  The following describes the process which we aim to implement as part of this project.
+
+1. A Prospective Chatbot Participant will requests to join the Buerokratt System via email or using some other 'non-automated' mechanisim.
+  They will need to provide the Endpoint the participant will be hosted on, its Institution and it's Name.
+2. The CentOps Admin creates the requested participant using the CentOps private Admin API.  
+
+   ``` json
+   {
+    endpoint: "http://bot1:8080",
+    name: "bot1",
+    institutionId "e98fb20d-e3fa-45c5-85a2-d14ef33bf280",
+    status: "Online",
+    type: "Chatbot"
+   }
+   ```
+
+3. This generates an API key which is securely provided to the Participant by the CentOps admin in a non-automated fashion.
+
+4. The Participant can add the API key to the Chatbot configuration which will allow the chatbot, in this case, to contact the CentOps Public API.  This key will not allow communication with the Private, by design.
