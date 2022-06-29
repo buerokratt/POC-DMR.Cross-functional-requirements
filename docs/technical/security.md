@@ -244,7 +244,8 @@ The Private API will be called by CentOps Administrators who will be responsible
 The onboarding process is a crucial part of obtaining an API key.  The following describes the process which we aim to implement as part of this project.
 
 1. A Prospective Chatbot Participant will requests to join the Buerokratt System via email or using some other 'non-automated' mechanisim.
-  They will need to provide the Endpoint the participant will be hosted on, its Institution and it's Name.
+  They will need to provide the Endpoint the participant will be hosted on, its Institution and its Name.
+
 2. The CentOps Admin creates the requested participant using the CentOps private Admin API.  
 
    ``` json
