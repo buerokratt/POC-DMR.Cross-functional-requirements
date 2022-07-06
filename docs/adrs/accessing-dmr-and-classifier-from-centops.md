@@ -30,6 +30,8 @@ In order to handle Classifiers or DMRs being taken offline clients will need to 
 
 * Allow for one of each special participant type for each Institution.
 
+> It's unclear at this stage if this is correct model for these special participants.
+
 * Implement a CentOps Api which selects a Dmr or Classifier based on the Id/Name of the requester.
 
 ```url
@@ -37,3 +39,9 @@ In order to handle Classifiers or DMRs being taken offline clients will need to 
 
 /public/classifiers
 ```
+
+> These extra APIs introduce more data to model without much benefit. 
+
+* Have a single or a few 'well known' Classifiers and DMRs behind load balancers and don't support them as Participants using CentOps.
+
+> This was discussed earlier in the project and handling DMR and Classifiers as participants was specifically requested.
