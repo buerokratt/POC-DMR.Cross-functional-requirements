@@ -19,7 +19,7 @@ The caller simply selects a DMR or Classifier from the list of participants of t
 e.g.:
 
 ```url
-/public/participants?type=Classifier&count=1
+GET /public/participants?type=Classifier&count=1
 ```
 
 Clients of this Api will be able to select a single Dmr or Classifier to interact with.
