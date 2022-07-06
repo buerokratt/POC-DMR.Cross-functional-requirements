@@ -12,14 +12,14 @@ Non-chatbot Participants (Classifier and DMR) can have multiple instances in Cen
 Implement an API which allows for filtering by Participant type:
 
 ```url
-/public/participants?type=Dmr
+GET /public/participants?type=Dmr
 ```
 
-The caller simply selects the a DMR or Classifier from the list of participants of those types.  To avoid sending unused data on the wire an additional filter 'count' could be implemented.
+The caller simply selects a DMR or Classifier from the list of participants of those types.  To avoid sending unused data on the wire an additional filter 'count' could be implemented.
 e.g.:
 
 ```url
-/public/participants?type=Classifier&count=1
+GET /public/participants?type=Classifier&count=1
 ```
 
 Clients of this Api will be able to select a single Dmr or Classifier to interact with.
@@ -28,7 +28,7 @@ In order to handle Classifiers or DMRs being taken offline clients will need to 
 
 ### Alternatives
 
-* Allow for one of each special participant type for each Institution.
+* Allow for only _one_ DMR or Classifier under each Institution.
 
 > It's unclear at this stage if this is correct model for these special participants.
 
