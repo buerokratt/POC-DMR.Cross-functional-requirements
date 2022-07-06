@@ -28,7 +28,7 @@ In order to handle Classifiers or DMRs being taken offline clients will need to 
 
 ### Alternatives
 
-* Allow for one of each special participant type for each Institution.
+* Allow for only _one_ DMR or Classifier under each Institution.
 
 * Implement a CentOps Api which selects a Dmr or Classifier based on the Id/Name of the requester.
 
