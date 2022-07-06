@@ -15,7 +15,7 @@ Implement an API which allows for filtering by Participant type:
 /public/participants?type=Dmr
 ```
 
-The caller simply selects the a DMR or Classifier from the list of participants of those types.  To avoid sending unused data on the wire an additional filter 'count' could be implemented.
+The caller simply selects a DMR or Classifier from the list of participants of those types.  To avoid sending unused data on the wire an additional filter 'count' could be implemented.
 e.g.:
 
 ```url
