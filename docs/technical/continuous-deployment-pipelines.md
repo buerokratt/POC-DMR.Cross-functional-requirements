@@ -44,18 +44,18 @@ This pipeline has to be run once per project when the code is first cloned
 Sets up the underlying Azure Architechture using Terraform
 
 This is split into two pipelines with different triggers
-    * [PR](https://github.com/buerokratt/Infrastructure/blob/main/.github/workflows/cd-infrastructure-pr.yml)
-        - Triggered by:
-            - `workflow_dispatch` manually running the workflow
-            - Opening/commiting to/closing a `pull_request` on `main` specifically any folders that contain either infrastucture terraform or relevant workflows
-    * [Release](https://github.com/buerokratt/Infrastructure/blob/main/.github/workflows/cd-infrastructure-release.yml)
-        - Triggered by:
-            - `workflow_dispatch` manually running the workflow
-            - `push` to `main` specifically any folders that contain either infrastucture terraform or relevant workflows
-        - Has branch protection rules (set in [GH Enironments](https://github.com/buerokratt/Infrastructure/settings/environments/525828854/edit))
+  * [PR](https://github.com/buerokratt/Infrastructure/blob/main/.github/workflows/cd-infrastructure-pr.yml)
+    - Triggered by:
+        - `workflow_dispatch` manually running the workflow
+        - Opening/commiting to/closing a `pull_request` on `main` specifically any folders that contain either infrastucture terraform or relevant workflows
+  * [Release](https://github.com/buerokratt/Infrastructure/blob/main/.github/workflows/cd-infrastructure-release.yml)
+    - Triggered by:
+        - `workflow_dispatch` manually running the workflow
+        - `push` to `main` specifically any folders that contain either infrastucture terraform or relevant workflows
+    - Has branch protection rules (set in [GH Enironments](https://github.com/buerokratt/Infrastructure/settings/environments/525828854/edit))
         * `Dev_deployment`
         * `Prod_deployment`
-          * Requires successful execution of `Dev_deployment`
+            * Requires successful execution of `Dev_deployment`
 
 Both of these pipelines call a subsequent [reusable terraform deployment](https://github.com/buerokratt/Infrastructure/blob/main/.github/workflows/reusable-terraform-deployment.yml) action
 
