@@ -29,6 +29,60 @@ The pipeline inside the Infrastructure Repo is trigger using a GitHub CLI step
 `gh workflow run $cd_workflow_dispatch_file_name -f app_name=$app_name -f image_tag=${GITHUB_SHA} --repo $infrastructure_repo_path --ref main`
 
 
-## What does CD do?
-
 ## CD Pipeline Breakdown
+
+There are three main parts to CD deployment for this project:
+
+1. One-time Setup
+
+Calls a [bash script](https://github.com/buerokratt/Infrastructure/blob/main/scripts/setup-project-prereqs.sh) which creates a `Key Vault` to store terraform state
+
+This pipeline has to be run once per project when the code is first cloned 
+
+2. Infrastructure
+
+Sets up the underlying Azure Architechture using Terraform
+
+This is split into two pipelines with different triggers
+    * [PR](https://github.com/buerokratt/Infrastructure/blob/main/.github/workflows/cd-infrastructure-pr.yml)
+        - Triggered by:
+            - `workflow_dispatch` manually running the workflow
+            - Opening/commiting to/closing a `pull_request` on `main` specifically any folders that contain either infrastucture terraform or relevant workflows
+    * [Release](https://github.com/buerokratt/Infrastructure/blob/main/.github/workflows/cd-infrastructure-release.yml)
+        - Triggered by:
+            - `workflow_dispatch` manually running the workflow
+            - `push` to `main` specifically any folders that contain either infrastucture terraform or relevant workflows
+        - Has branch protection rules (set in [GH Enironments](https://github.com/buerokratt/Infrastructure/settings/environments/525828854/edit))
+        * `Dev_deployment`
+        * `Prod_deployment`
+          * Requires successful execution of `Dev_deployment`
+
+Both of these pipelines call a subsequent [reusable terraform deployment](https://github.com/buerokratt/Infrastructure/blob/main/.github/workflows/reusable-terraform-deployment.yml) action
+
+### Action Inputs
+
+| parameter              | value                                       |
+|------------------------|---------------------------------------------|
+| gh_environment         | GitHub Repository Environment               |
+| working_directory_path | Path where code to execute sits             |
+| environment_name       | Environment prefix used in Azure resources  |
+| environment_postfix    | Environment postfix used in Azure resources |
+
+| secret                    | value                                                            |
+|---------------------------|------------------------------------------------------------------|
+| azure_ad_client_id        | Azure Active Directory Client Id                                 |
+| azure_ad_client_secret    | Azure Active Directory Client Secret                             |
+| azure_subscription_id     | Azure Active Directory Subscription Id                           |
+| azure_ad_tenant_id        | Azure Active Directory Tenant Id                                 |
+| azure_storage_account_key | Azure Blob Storage Account key for the terraform storage account |
+
+| Task               | Description |
+|--------------------|-------------|
+| Checkout           |             |
+| Setup Terraform    |             |
+| Terraform Format   |             |
+| Terraform Init     |             |
+| Terraform Validate |             |
+| Terraform Apply    |             |
+
+3. Kubernetes Deployment
