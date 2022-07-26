@@ -17,7 +17,7 @@ In some places, we have implemented a crude semantic version style where the ver
 4. For consistency, the docker image tags should also use the same versioning strategy
 5. Any package with `-suffix` after the version number is to be treated as 'prerelease' by the NuGet package manager
 
-When the GitVersion tool is configured in the "Mainline" development mode, it will automatically bump the version number on every merge into `main` branch.
+When the GitVersion tool is configured in the ["Mainline" development mode](https://gitversion.net/docs/reference/modes/mainline), it will automatically bump the version number on every merge into `main` branch.
 When we need a major or minor version number bump: https://gitversion.net/docs/reference/version-increments#manually-incrementing-the-version
 
 ### Alternatives
@@ -32,11 +32,11 @@ These alternative versioning styles were considered
 
 | Asset    | Implemented |
 |----------|-------------|
-| Buerokratt.Common library | `IN PROGRESS` |
-| CentOps docker container | ❌ |
-| DMR docker container | ❌ |
-| MockClassifier docker container | ❌ |
-| MockBot docker container | ❌ |
+| Buerokratt.Common library | ✔️ |
+| CentOps docker container | ❌ (see https://github.com/buerokratt/CentOps/issues/95) |
+| DMR docker container | ❌ (see https://github.com/buerokratt/DMR/issues/72) |
+| MockClassifier docker container | ❌ (see https://github.com/buerokratt/Mock-Classifier/issues/69) |
+| MockBot docker container | ❌ (see https://github.com/buerokratt/Mock-Bot/issues/53) |
 
 ## Consequences
 
