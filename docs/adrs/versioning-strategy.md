@@ -17,13 +17,16 @@ In some places, we have implemented a crude semantic version style where the ver
 4. For consistency, the docker image tags should also use the same versioning strategy
 5. Any package with `-suffix` after the version number is to be treated as 'prerelease' by the NuGet package manager
 
+When the GitVersion tool is configured in the "Mainline" development mode, it will automatically bump the version number on every merge into `main` branch.
+When we need a major or minor version number bump: https://gitversion.net/docs/reference/version-increments#manually-incrementing-the-version
+
 ### Alternatives
 
 These alternative versioning styles were considered
 | Versioning strategy | Comments |
 |---------------------|----------|
-| `1.2.3-f6377258` | SemVer versioning with a short SHA suffix. NuGet treats versions with "-suffix" on the end as prerelease versions so this won't be appropriate for NuGet packages. |
-| `1.0.<github_run_number>` | Another flavour of SemVer versioning. |
+| `1.2.3-f6377258` | SemVer versioning with a short SHA suffix. <br> 1. NuGet treats versions with "-suffix" on the end as prerelease versions so this won't be appropriate for NuGet packages. <br> 2. Since our decision is to use "Mainline" development mode, we will not be able to replace a version with another binary, any commits will always generate a new version number, thus making short SHAs somewhat redundant. |
+| `1.0.<github_run_number>` | Another flavour of SemVer versioning. However, this requires a lot of fiddling and work to make it work in the PR and `main` branch scenarios. Using GitVersion takes care of this. |
 
 ## Status
 
@@ -36,3 +39,7 @@ These alternative versioning styles were considered
 | MockBot docker container | ❌ |
 
 ## Consequences
+
+The consequences of not implement this versioning strategy would mean:
+* It would become difficult to workout whether a package reference update is a newer or older version.
+* It would make creating release packages more difficult and increase the barrier to entry for developers trying to consume any of our packages
