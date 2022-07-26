@@ -41,5 +41,5 @@ These alternative versioning styles were considered
 ## Consequences
 
 The consequences of not implement this versioning strategy would mean:
-* It would become difficult to workout whether a package reference update is a newer or older version.
+* It would become difficult to work out whether a package reference update is a newer or older version.
 * It would make creating release packages more difficult and increase the barrier to entry for developers trying to consume any of our packages
