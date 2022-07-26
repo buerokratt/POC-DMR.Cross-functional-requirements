@@ -12,7 +12,8 @@ In some places, we have implemented a crude semantic version style where the ver
 2. Packages from `main` branch are to have a full semantic version like this: `1.2.3`
 3. Packages from non-`main` branches are to have a full semantic version like this: `1.2.3-pr17.12`
    * `pr17` - denoting that the package is an output of a (hypothetical) PR #17 
-   * `.12` - number pof pushes in made to the branch/PR
+   * `.12` - number of pushes in made to the branch/PR
+   * The above values are default out-of-the-box functionality of the GitVersion tool mentioned above
 4. For consistency, the docker image tags should also use the same versioning strategy
 5. Any package with `-suffix` after the version number is to be treated as 'prerelease' by the NuGet package manager
 
