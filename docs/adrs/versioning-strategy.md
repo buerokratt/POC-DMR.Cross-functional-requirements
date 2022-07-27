@@ -11,11 +11,14 @@ In some places, we have implemented a crude semantic version style where the ver
 1. Use the [GitVersion GitHub Action](https://github.com/marketplace/actions/gittools) to implement semantic versions across all containers and applications: https://gitversion.net/docs/learn/intro-to-semver
 2. Packages from `main` branch are to have a full semantic version like this: `1.2.3`
 3. Packages from non-`main` branches are to have a full semantic version like this: `1.2.3-pr17.12`
-   * `pr17` - denoting that the package is an output of a (hypothetical) PR #17 
-   * `.12` - number of pushes in made to the branch/PR
-   * The above values are default out-of-the-box functionality of the GitVersion tool mentioned above
-4. For consistency, the docker image tags should also use the same versioning strategy
-5. Any package with `-suffix` after the version number is to be treated as 'prerelease' by the NuGet package manager
+    * `pr17` - denoting that the package is an output of a (hypothetical) PR #17 
+    * `.12` - number of pushes in made to the branch/PR
+    * The above values are default out-of-the-box functionality of the GitVersion tool mentioned above
+4. For consistency, the docker image tags should also use the same versioning strategy with some additional _docker image_ tags (not git tags):
+    * All images should be tagged with the full semantic version as specified above
+    * Additionally, when merging into `main` branch, the image should also be tagged: `latest`, `major` and `major.minor` \
+      This effectively allows consumers to pin themselves to a particular major or minor version without needing to provide the patch.
+6. Any package with `-suffix` after the version number is to be treated as 'prerelease' by the NuGet package manager
 
 When the GitVersion tool is configured in the ["Mainline" development mode](https://gitversion.net/docs/reference/modes/mainline), it will automatically bump the version number on every merge into `main` branch.
 When we need a major or minor version number bump: https://gitversion.net/docs/reference/version-increments#manually-incrementing-the-version
