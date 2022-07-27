@@ -18,7 +18,7 @@ In some places, we have implemented a crude semantic version style where the ver
     * All images should be tagged with the full semantic version as specified above
     * Additionally, when merging into `main` branch, the image should also be tagged: `latest`, `major` and `major.minor` \
       This effectively allows consumers to pin themselves to a particular major or minor version without needing to provide the patch.
-6. Any package with `-suffix` after the version number is to be treated as 'prerelease' by the NuGet package manager
+5. Any package with `-suffix` after the version number is to be treated as 'prerelease' by the NuGet package manager
 
 When the GitVersion tool is configured in the ["Mainline" development mode](https://gitversion.net/docs/reference/modes/mainline), it will automatically bump the version number on every merge into `main` branch.
 When we need a major or minor version number bump: https://gitversion.net/docs/reference/version-increments#manually-incrementing-the-version
