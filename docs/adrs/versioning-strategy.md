@@ -17,7 +17,7 @@ In some places, we have implemented a crude semantic version style where the ver
 4. For consistency, the docker image tags should also use the same versioning strategy with some additional _docker image_ tags (not git tags):
     * All images should be tagged with the full semantic version as specified above
     * Additionally, when merging into `main` branch, the image should also be tagged: `latest`, `major` and `major.minor` \
-      This effectively allows consumers to pin themselves to a particular major or minor version without needing to provide the patch.
+      This is to allow consumers to pin themselves to a particular major or minor version without needing to provide the patch. Effectively consuming the latest image within a major or minor version.
 5. Any package with `-suffix` after the version number is to be treated as 'prerelease' by the NuGet package manager
 
 When the GitVersion tool is configured in the ["Mainline" development mode](https://gitversion.net/docs/reference/modes/mainline), it will automatically bump the version number on every merge into `main` branch.
