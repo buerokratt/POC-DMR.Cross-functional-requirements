@@ -1,10 +1,10 @@
 # Continuous Deployment Strategy for Applications
 
-This document outlines a high level strategy and approach for Continuous Deployment pipelines across the whole Bürokratt system.
+This document outlines a high-level strategy and approach for Continuous Deployment pipelines across the whole Bürokratt system.
 
 Continuous Deployment (CD) is the practice of automatically releasing changes from the (`main`) branch frequently and in doing so "continuously" ensuring that the code "integrates" well with other code.
 
-By combining Continuous Integration and infrastructure as code (IaC), we're able to achieve identical deployments with the confidence to be able to deploy to production at any time. Continuous Deployment, allows us to automate the entire process from code commit to production if CI/CD tests and security checks pass.
+By combining Continuous Integration and infrastructure as code (IaC), we're able to achieve identical deployments with the confidence to be able to deploy to production at any time. CD allows us to automate the entire process from code commit to production if CI/CD tests and security checks pass.
 
 ## How does it work?
 
@@ -18,13 +18,13 @@ Here are the CI pipelines for each of our applications:
 - [CentOps](https://github.com/buerokratt/CentOps/blob/main/.github/workflows/build-publish-main.yml)
 - [Mock-Classifier](https://github.com/buerokratt/Mock-Classifier/blob/main/.github/workflows/ci-build-publish-main.yml)
 
-The CD pipelines in these application code repositories are triggered automatically when changes are merged to `main`.  This initates the creation of docker containers which are signed and put onto GHCR (GitHub Container Registry).
+The CD pipelines in these application code repositories are triggered automatically when changes are merged to `main`.  This initiates the creation of docker containers which are signed and put onto GHCR (GitHub Container Registry).
 
 The pipeline in the application repository then triggers the [cd-app-deployment](https://github.com/buerokratt/Infrastructure/blob/main/.github/workflows/cd-app-deployment.yml) pipeline inside the Infrastructure repo using the GitHub CLI's `gh workflow run` command.
 
 ## How can you trigger deployments manually?
 
-Sometimes, you might want to deploy applications adhoc. For this you need to:
+Sometimes, you might want to deploy applications ad hoc. For this you need to:
 1. Navigate to [cd-app-deployment](https://github.com/buerokratt/Infrastructure/blob/main/.github/workflows/cd-app-deployment.yml) pipeline and select "Run workflow": \
 ![Run workflow screenshot](.images/runworkflow-screenshot.png)
 2. Enter the name of the application package you want to deploy

@@ -10,7 +10,7 @@ There are three main parts to CD deployment for this project:
 
 Calls a [bash script](https://github.com/buerokratt/Infrastructure/blob/main/scripts/setup-project-prereqs.sh) which creates a `Storage Account` to store terraform state
 
-This workflow has to be run once per project.
+This workflow must be run once per project to allow terraform deployments to store their state files in an 'admin' storage account.
 
 ### 2. Infrastructure workflows
 
@@ -20,7 +20,7 @@ This is split into two workflows with different triggers
   * [PR](https://github.com/buerokratt/Infrastructure/blob/main/.github/workflows/cd-infrastructure-pr.yml)
     - Triggered by:
         - `workflow_dispatch` manually running the workflow
-        - Opening/commiting to/closing a `pull_request` on `main` specifically any folders that contain either infrastucture terraform or relevant workflows
+        - Opening/commiting to/closing a `pull_request` on `main` specifically any folders that contain either infrastructure terraform or relevant workflows
   * [Release](https://github.com/buerokratt/Infrastructure/blob/main/.github/workflows/cd-infrastructure-release.yml)
     - Triggered by:
         - `workflow_dispatch` manually running the workflow
