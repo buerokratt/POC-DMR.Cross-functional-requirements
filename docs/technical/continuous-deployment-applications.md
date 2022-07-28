@@ -2,9 +2,9 @@
 
 This document outlines a high-level strategy and approach for Continuous Deployment pipelines across the whole Bürokratt system.
 
-Continuous Deployment (CD) is the practice of automatically releasing changes from the (`main`) branch frequently and in doing so "continuously" ensuring that the code "integrates" well with other code.
+Continuous Deployment (CD) is the practice of automatically releasing changes from the `main` branch frequently. CD allows us to automate the entire process from code commit to production if tests and security checks pass.
 
-By combining Continuous Integration and infrastructure as code (IaC), we're able to achieve identical deployments with the confidence to be able to deploy to production at any time. CD allows us to automate the entire process from code commit to production if CI/CD tests and security checks pass.
+The CI pipeline (see Continuous Integration strategy) produces containers which are effectively immutable build artifacts that are deployed to the AKS cluster.
 
 ## How does it work?
 
@@ -27,7 +27,7 @@ The pipeline in the application repository then triggers the [cd-app-deployment]
 Sometimes, you might want to deploy applications ad hoc. For this you need to:
 1. Navigate to [cd-app-deployment](https://github.com/buerokratt/Infrastructure/blob/main/.github/workflows/cd-app-deployment.yml) pipeline and select "Run workflow": \
 ![Run workflow screenshot](.images/runworkflow-screenshot.png)
-2. Enter the name of the application package you want to deploy
-3. Enter the tag/version of the application (at the moment, it is the same as the commit SHA)
+2. Enter the name of the application package you want to deploy.
+3. Enter the tag/version of the application. This should be the same as the commit SHA.
 
-Find the names and tags of the packages here: https://github.com/orgs/buerokratt/packages
+Find the names and commit SHAs (tag/version) for deploying packages here: https://github.com/orgs/buerokratt/packages
